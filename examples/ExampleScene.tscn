@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1nm4u7lgdaod"]
+
+[ext_resource type="PackedScene" uid="uid://fq5ok7fbcw7g" path="res://examples/ExamplePlayer.tscn" id="1_x1pqu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbc1e"]
+size = Vector2(1228, 56)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oc708"]
+
+[node name="ExampleScene" type="Node2D"]
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Map"]
+position = Vector2(581, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D"]
+shape = SubResource("RectangleShape2D_vbc1e")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Map/StaticBody2D"]
+scale = Vector2(1234.2, -55.6605)
+mesh = SubResource("BoxMesh_oc708")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Map"]
+position = Vector2(581, 628)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D2"]
+shape = SubResource("RectangleShape2D_vbc1e")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Map/StaticBody2D2"]
+scale = Vector2(1234.2, -55.6605)
+mesh = SubResource("BoxMesh_oc708")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Map"]
+position = Vector2(1155, 286)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D3"]
+shape = SubResource("RectangleShape2D_vbc1e")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Map/StaticBody2D3"]
+scale = Vector2(1234.2, -55.6605)
+mesh = SubResource("BoxMesh_oc708")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Map"]
+position = Vector2(-5, 302)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D4"]
+shape = SubResource("RectangleShape2D_vbc1e")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Map/StaticBody2D4"]
+scale = Vector2(1234.2, -55.6605)
+mesh = SubResource("BoxMesh_oc708")
+
+[node name="ExamplePlayer" parent="." instance=ExtResource("1_x1pqu")]
+position = Vector2(570, 558)
