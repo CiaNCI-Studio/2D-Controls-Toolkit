@@ -40,11 +40,14 @@ var last_direction : Vector2
 
 @onready var parent = get_parent() as CharacterBody2D
 
-func get_direction(refernce : Node2D = parent) -> Vector2:
+func get_direction(reference : Node2D = null) -> Vector2:
 	var current = last_direction
 	if (not jumping or Air_Control):
 		var input_dir = Input.get_vector(Input_Left, Input_Right, Input_Up, Input_Down)
-		last_direction = (refernce.transform.origin * Vector2(input_dir.x, input_dir.y)).normalized()
+		if reference: 
+			last_direction = (reference.transform.origin * Vector2(input_dir.x, input_dir.y)).normalized()
+		else:
+			last_direction = (Vector2(input_dir.x, input_dir.y)).normalized()
 	if current != last_direction:
 		ChangeSpriteDirection.emit(last_direction)
 	return last_direction

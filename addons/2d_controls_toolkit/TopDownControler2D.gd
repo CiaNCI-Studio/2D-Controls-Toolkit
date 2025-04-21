@@ -8,6 +8,7 @@ enum action_types {
 
 @export_category("Movement")
 @export var Action_Type : action_types = action_types.directional
+@export var Rotate = true
 @export var Turn_Speed = 10
 @export var Floor_Group : String = "floor"
 
@@ -64,7 +65,6 @@ func _process(delta: float) -> void:
 			handle_directional_action(delta)
 		action_types.move_to_click:
 			handle_move_to_click_action(delta)
-							
 	move()
 
 	
@@ -84,7 +84,9 @@ func handle_directional_action(delta :float):
 				if Camera_Smooth_Distance and abs(camera.position.x) < Camera_Smooth_Distance:	
 					camera.position.x = move_toward(camera.position.x, direction.x * currentSpeed * -1, Camera_Smooth_Speed * delta)
 				if Camera_Smooth_Distance and abs(camera.position.y) < Camera_Smooth_Distance:	
-					camera.position.y = move_toward(camera.position.y, direction.z * currentSpeed * -1, Camera_Smooth_Speed * delta)
+					camera.position.y = move_toward(camera.position.y, direction.y * currentSpeed * -1, Camera_Smooth_Speed * delta)
+		handle_rotation(delta, direction)
+			
 	else:		
 		velocity.x = move_toward(velocity.x, 0, Deacceleration * delta)		
 		velocity.y = move_toward(velocity.y, 0, Deacceleration * delta)		
@@ -95,7 +97,7 @@ func handle_directional_action(delta :float):
 			else:
 				camera.position.x = move_toward(camera.position.x, Horizontal_Offset, Camera_Smooth_Speed * delta)
 				camera.position.y = move_toward(camera.position.y, Horizontal_Offset, Camera_Smooth_Speed * delta)		
-
+	
 func handle_move_to_click_action(delta :float):
 	var currentSpeed = get_speed()
 	
@@ -104,14 +106,22 @@ func handle_move_to_click_action(delta :float):
 		
 		if direction:
 			velocity.x = move_toward(velocity.x, direction.x * currentSpeed, Acceleration * delta)
-			velocity.y = move_toward(velocity.y, direction.y * currentSpeed, Acceleration * delta)		
+			velocity.y = move_toward(velocity.y, direction.y * currentSpeed, Acceleration * delta)
+			handle_rotation(delta, direction)	
 		else:
 			velocity.x = move_toward(velocity.x, 0, Deacceleration * delta)		
 			velocity.y = move_toward(velocity.y, 0, Deacceleration * delta)	
 			
 		if transform.origin.distance_to(target) < .5:
 			target = Vector2.ZERO			
-	
+
+func handle_rotation(delta : float, direction : Vector2):
+	if Rotate:
+		var currentRotation = parent.rotation
+		parent.look_at( parent.global_position + direction)
+		var targetRotation = parent.rotation
+		parent.rotation = lerp_angle(currentRotation, targetRotation, Turn_Speed * delta)
+
 func toggle_active(state : bool):	
 	Active = state
 	if Handle_Camera:

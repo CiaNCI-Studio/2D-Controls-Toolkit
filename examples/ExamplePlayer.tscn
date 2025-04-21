@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://fq5ok7fbcw7g"]
 
-[ext_resource type="Script" path="res://addons/2d_controls_toolkit/SideScrollingControler2D.gd" id="1_3vi07"]
+[ext_resource type="Script" uid="uid://434xyxn5disn" path="res://addons/2d_controls_toolkit/SideScrollingControler2D.gd" id="1_3vi07"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_emsc6"]
 
